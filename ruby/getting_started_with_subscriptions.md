@@ -53,7 +53,7 @@ post '/my/webhook/url' do
     invoice.items.each do {|item| 
 
       # Is the item a subscription?
-      next if defined? item.subscription
+      next unless defined?
 
       subscription = item.subscription.id
       period_end = item.subscription.period_end
@@ -98,14 +98,14 @@ get '/page_customer_should_see_on_success' do
 		throw new Exception('Invoice has not been paid.');
 
     # Is the item a subscription?
-    next if defined? item.subscription
+    next unless defined?
 
     subscription = item.subscription.id
     period_end = item.subscription.period_end
     amount = item.total_amount
     currency = item.currency
 
-    #CODE TO UPDATE SUBSCRIPTION EXPIRATION
+    # Update subscription expiration
   }
 end
 ```

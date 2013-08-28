@@ -60,7 +60,7 @@ switch($event['event']):
 			$amount = $item['total_amount'];
 			$currency = $item['currency'];
 
-			// CODE TO UPDATE SUBSCRIPTION EXPIRATION
+			// Update subscription expiration
 		}
 	break;
 
@@ -71,7 +71,7 @@ switch($event['event']):
 		$amount_to_be_paid = $event['invoice']['calculated_total']['amount'];
 		$currency = $event['invoice']['calculated_total']['currency'];
 
-		// CODE TO NOTIFY CUSTOMER OR YOU
+		// Notify customer or you
 	break;
 
 	default:
@@ -103,6 +103,6 @@ foreach($invoice['items'] as $item)
 	$amount = $item['total_amount'];
 	$currency = $item['currency'];
 
-	// CODE TO UPDATE SUBSCRIPTION
+	// Update subscription expiration
 }
 ```
