@@ -33,7 +33,8 @@ $params = array(
 );
 
 // The following code will print full HTML so it is a good idea to stop any output after this
-print \Peakium\SubmissionForm::build(($update_request ? 'update-subscription' : 'create-subscription'), $params)['html'];
+$submission_form = \Peakium\SubmissionForm::build(($update_request ? 'update-subscription' : 'create-subscription'), $params);
+print $submission_form['html'];
 ```
 
 2. Retrieve callbacks to automate subscriptions
@@ -78,6 +79,9 @@ switch($event['event']):
 		throw new Exception(sprintf('Could not handle event "%s"', $event['event']));
 endswitch;
 ```
+
+2b. Using return path
+---------------------
 
 An alternative is to use the invoice id when the customer returns to your website. It is not as reliable, because users might not return to your website for some reason, so use this method with care!
 

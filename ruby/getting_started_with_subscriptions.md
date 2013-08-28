@@ -77,6 +77,9 @@ post '/my/webhook/url' do
 end
 ```
 
+2b. Using return path
+---------------------
+
 An alternative is to use the invoice id when the customer returns to your website. It is not as reliable, because users might not return to your website for some reason, so use this method with care!
 
 ```ruby
