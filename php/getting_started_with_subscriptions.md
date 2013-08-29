@@ -47,13 +47,14 @@ $raw_data = stream_get_contents($fp);
 
 // Parse the body of the callback to json array
 $event = json_decode($raw_data, true);
+$object = $event['data']['object'];
 
 switch($event['event']):
 	// In case an invoice has been paid
 	case 'invoice.paid':
-		$customer = $event['data']['customer']['id'];
-		$payment_date = $event['data']['timestamp_paid'];
-		foreach($event['data']['items'] as $item)
+		$customer = $object['customer']['id'];
+		$payment_date = $object['timestamp_paid'];
+		foreach($object['items'] as $item)
 		{
 			// Is the item a subscription?
 			if (!isset($item['subscription']))
@@ -70,10 +71,10 @@ switch($event['event']):
 
 	// In case an invoice could not be paid
 	case 'invoice.payment_failed':
-		$customer = $event['data']['customer']['id'];
-		$due_date = $event['data']['due'];
-		$amount_to_be_paid = $event['data']['calculated_total']['amount'];
-		$currency = $event['data']['calculated_total']['currency'];
+		$customer = $object['customer']['id'];
+		$due_date = $object['due'];
+		$amount_to_be_paid = $object['calculated_total']['amount'];
+		$currency = $object['calculated_total']['currency'];
 
 		// Notify customer or you
 	break;
@@ -97,8 +98,8 @@ $invoice = \Peakium\Invoice::retrieve($_GET['invoice'], $retrieve_params);
 if ($invoice['paid'] != true)
 	throw new Exception('Invoice has not been paid.');
 
-$customer = $event['data']['customer']['id'];
-$payment_date = $event['data']['timestamp_paid'];
+$customer = $invoice['customer']['id'];
+$payment_date = $invoice['timestamp_paid'];
 foreach($invoice['items'] as $item)
 {
 	// Is the item a subscription?

@@ -46,11 +46,12 @@ require 'json'
 post '/my/webhook/url' do
   # Parse the body of the callback to json
   event = JSON.parse(request.body.read)
+  object = event.data.object
 
   case event.event
   when "invoice.paid"
-    customer = event.data.customer.id
-    payment_date = event.data.timestamp_paid
+    customer = object.customer.id
+    payment_date = object.timestamp_paid
     invoice.items.each do {|item| 
 
       # Is the item a subscription?
@@ -65,10 +66,10 @@ post '/my/webhook/url' do
     }
 
   when "invoice.payment_failed"
-    customer = event.data.customer.id
-    due_date = event.data.due
-    amount_to_be_paid = event.data.calculated_total.amount
-    currency = event.data.calculated_total.currency
+    customer = object.customer.id
+    due_date = object.due
+    amount_to_be_paid = object.calculated_total.amount
+    currency = object.calculated_total.currency
 
     # Notify customer or you
 
