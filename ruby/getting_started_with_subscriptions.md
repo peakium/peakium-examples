@@ -44,6 +44,7 @@ puts submission_form.html
 require 'json'
 
 post '/my/webhook/url' do
+  # Parse the body of the callback to json
   event = JSON.parse(request.body.read)
 
   case event.event

@@ -41,8 +41,11 @@ print $submission_form['html'];
 -----------------------------------------------
 
 ```php
+// Read the body of the callback
 $fp = fopen('php://input', 'r');
 $raw_data = stream_get_contents($fp);
+
+// Parse the body of the callback to json array
 $event = json_decode($raw_data, true);
 
 switch($event['event']):
