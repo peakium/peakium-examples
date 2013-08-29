@@ -48,7 +48,7 @@ $event = json_decode($raw_data, true);
 switch($event['event']):
 	// In case an invoice has been paid
 	case 'invoice.paid':
-		$customer = ($event['data']['customer']['id'];
+		$customer = $event['data']['customer']['id'];
 		$payment_date = $event['data']['timestamp_paid'];
 		foreach($event['data']['items'] as $item)
 		{
