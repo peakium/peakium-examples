@@ -37,6 +37,8 @@ submission_form = Peakium::SubmissionForm.build(update_request ? "update-subscri
 puts submission_form.html
 ```
 
+You can use the library to convert the json into Peakium objects by using `symbolized = Peakium::Util.symbolize_names(json_array)` and `object = Peakium::Util.convert_to_peakium_object(symbolized)`.
+
 2. Retrieve callbacks to automate subscriptions
 -----------------------------------------------
 

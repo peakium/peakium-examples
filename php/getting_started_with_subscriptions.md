@@ -84,6 +84,8 @@ switch($event['event']):
 endswitch;
 ```
 
+You can use the library to convert the json into Peakium objects by using `$symbolized = \Peakium\Util::symbolize_names($json_array);` and `$object = \Peakium\Util::convert_to_peakium_object($symbolized);`.
+
 2b. Using return path
 ---------------------
 
