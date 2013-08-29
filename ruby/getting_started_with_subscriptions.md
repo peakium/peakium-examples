@@ -48,8 +48,8 @@ post '/my/webhook/url' do
 
   case event.event
   when "invoice.paid"
-    customer = event.invoice.customer.id
-    payment_date = event.invoice.timestamp_paid
+    customer = event.data.customer.id
+    payment_date = event.data.timestamp_paid
     invoice.items.each do {|item| 
 
       # Is the item a subscription?
@@ -64,10 +64,10 @@ post '/my/webhook/url' do
     }
 
   when "invoice.payment_failed"
-    customer = event.invoice.customer.id
-    due_date = event.invoice.due
-    amount_to_be_paid = event.invoice.calculated_total.amount
-    currency = event.invoice.calculated_total.currency
+    customer = event.data.customer.id
+    due_date = event.data.due
+    amount_to_be_paid = event.data.calculated_total.amount
+    currency = event.data.calculated_total.currency
 
     # Notify customer or you
 
