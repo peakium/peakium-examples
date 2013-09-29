@@ -11,7 +11,7 @@ There is just two steps to have a fully functional subscription system in place.
 
 ```php
 // Set the secret API key
-\Peakium.::$api_key = "you_secret_api_key"
+\Peakium.::$api_key = "you_secret_api_key";
 
 // Is this request a create new or update existing subscription?
 $update_request = false;
