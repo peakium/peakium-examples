@@ -54,7 +54,7 @@ switch($event['event']):
 	case 'invoice.paid':
 		$customer = $object['customer']['id'];
 		$payment_date = $object['timestamp_paid'];
-		foreach($object['items'] as $item)
+		foreach($object['items']['data'] as $item)
 		{
 			// Is the item a subscription?
 			if (!isset($item['subscription']))

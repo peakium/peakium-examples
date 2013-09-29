@@ -54,7 +54,7 @@ post '/my/webhook/url' do
   when "invoice.paid"
     customer = object.customer.id
     payment_date = object.timestamp_paid
-    invoice.items.each do {|item| 
+    invoice.items.data.each do {|item| 
 
       # Is the item a subscription?
       next unless defined?
