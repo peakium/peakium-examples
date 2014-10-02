@@ -29,7 +29,7 @@ params = {
   :payment_discount => 0,
   :return_url_ok => "http://example.com/page_customer_should_see_on_success/",
   :return_url_error => "http://example.com/page_customer_should_see_on_error/",
-  :submit_button_text => "Continue to payment",
+  :submit_button_text => "Continue to payment"
 }
 
 # The following code will print full HTML so it is a good idea to stop any output after this
@@ -52,23 +52,23 @@ post '/my/webhook/url' do
 
   case event.event
   when "invoice.paid"
-    customer = object.customer.id
+    customer_id = object.customer.id
     payment_date = object.timestamp_paid
-    invoice.items.data.each do {|item| 
+    invoice.items.data.each do { |item| 
 
       # Is the item a subscription?
-      next unless defined?
+      next unless item.has_key?("subscription")
 
-      subscription = item.subscription.id
+      subscription_id = item.subscription.id
       period_end = item.subscription.period_end
-      amount = item.total_amount
+      total = item.total_amount
       currency = item.currency
 
       # Update subscription expiration
     }
 
   when "invoice.payment_failed"
-    customer = object.customer.id
+    customer_id = object.customer.id
     due_date = object.due
     amount_to_be_paid = object.calculated_total.amount
     currency = object.calculated_total.currency
@@ -93,23 +93,20 @@ Peakium.api_key = "you_secret_api_key"
 get '/page_customer_should_see_on_success' do
   retrieve_params = {:expand => ["item.subscription"]}
   invoice = Peakium::Invoice.retrieve(params[:invoice], retrieve_params)
-  if invoice.paid != true
-    raise "Invoice has not been paid."
 
-  customer = invoice.customer.id
+  raise "Invoice has not been paid." unless invoice.paid
+
+  customer_id = invoice.customer.id
   payment_date = invoice.timestamp_paid
 
-  invoice.items.each do {|item| 
-    
-	if ($invoice['paid'] != true)
-		throw new Exception('Invoice has not been paid.');
+  invoice.items.data.each do { |item| 
 
     # Is the item a subscription?
-    next unless defined?
+    next unless item.has_key?("subscription")
 
-    subscription = item.subscription.id
+    subscription_id = item.subscription.id
     period_end = item.subscription.period_end
-    amount = item.total_amount
+    total = item.total_amount
     currency = item.currency
 
     # Update subscription expiration
