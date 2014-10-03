@@ -20,13 +20,18 @@ update_request = false
 params = {
   :customer => "some_customer_id",
   :subscription => "some_subscription_id",
-  :item_id => 101,
-  :item_description => "My new subscription",
+  :items => {
+    {
+      :item_id => 101,
+      :item_description => "My new subscription",
+      :unit_amount => 500,
+      :quantity => 1,
+      :discount => 0
+    }
+  },
   :period_amount => 1,
   :period_type => "month",
-  :payment_amount => 500,
   :payment_currency => "USD",
-  :payment_discount => 0,
   :return_url_ok => "http://example.com/page_customer_should_see_on_success/",
   :return_url_error => "http://example.com/page_customer_should_see_on_error/",
   :submit_button_text => "Continue to payment"
